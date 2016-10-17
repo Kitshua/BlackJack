@@ -1,51 +1,62 @@
 
 public class Card 
-{
-	private int rank, suit;
+{	
+	private String rank, suit;
+	private int value;
 	
-	private String[] suitNames = new String[]{"H","C","S","D"};
-	private String[] rankNums = new String[]{"A","1","2","3","4","5","6","7","8","9","10","J","Q","K"};
-	private int[] points = new int[]{1,2,3,4,5,6,7,8,9,10,10,10,10};
+//	private String[] suitNames = new String[]{"H","C","S","D"};
+//	private String[] rankNums = new String[]{"A","1","2","3","4","5","6","7","8","9","10","J","Q","K"};
+//	private int[] points = new int[]{1,2,3,4,5,6,7,8,9,10,10,10,10};
 	
-	public Card()
+//	public Card()
+//	{
+//		suit = 0;
+//		rank = 0;
+//	}
+	
+//	public Card(String suit, String rank)
+//	{
+//		this.suit = suit;
+//		this.rank = rank;	
+//	}
+	
+	public Card(String suit, String rank, int value)
 	{
-		suit = 0;
-		rank = 0;
+		this.suit = suit;
+		this.rank = rank;
+		this.value = value;
 	}
 	
-	public Card(int suitIndex, int rankIndex)
-	{
-		suit = suitIndex;
-		rank = rankIndex;	
-	}
-	
-	public void setRank(int newRank)
+	public void setRank(String newRank)
 	{
 		rank = newRank;
 	}
 	
-	public void setSuit(int newSuit)
+	public void setSuit(String newSuit)
 	{
 		suit = newSuit;
 	}
 	
-	public int getRank()
+	public String getRank()
 	{
 		return rank;
 	}
 	
-	public int getSuit()
+	public String getSuit()
 	{
 		return suit;
 	}
 	
-	public int getPoints()
+	public int getValue()
 	{
-		return points[rank];
+		return value;
 	}
+	
+	public boolean isAce(){return rank.equals("A");}
+	public static boolean isAce(Card card){return card.rank.equals("A");}
 	
 	public String toString()
 	{
-		return "Rank: " + rankNums[rank] + "\nSuit: " + suitNames[suit];
+		return "Rank: " + rank + "\nSuit: " + suit + "\nValue:" + value;
 	}
 }
