@@ -45,5 +45,9 @@ public class Deck {
 		this.add(new Card(suit, rank, value));
 	}
 	
+	public void add(Hand hand){
+		cards.addAll(hand.cards);
+	}
+	
 	public Card draw(){return cards.pop();}
 }

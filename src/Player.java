@@ -1,5 +1,5 @@
 
-public class Player {
+public abstract class Player {
 	private String name;
 	private Hand hand;
 	
@@ -16,5 +16,13 @@ public class Player {
 	}
 	
 	public int getValue(){return hand.getValue();}
+	public Hand discardHand()
+	{
+		Hand out = hand;
+		hand = null;
+		return out;
+	}
+	
+	public abstract boolean getMove();
 	
 }
