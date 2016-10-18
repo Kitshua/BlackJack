@@ -1,21 +1,40 @@
 
-public abstract class Player {
+public abstract class Player 
+{
 	private String name;
 	private Hand hand;
 	
-	public Player(){name = "player";}
-	public Player(String name){this.name = name;}
+	public Player()
+	{
+		name = "player";
+	}
 	
-	public void deal(Hand hand){
+	public Player(String name)
+	{
+		this.name = name;
+	}
+	
+	public void deal(Hand hand)
+	{
 		this.hand = hand;
 	}
 	
-	public boolean hit(Card card){
+	public boolean hit(Card card)
+	{
 		hand.add(card);
 		return hand.checkValue();
 	}
 	
-	public int getValue(){return hand.getValue();}
+	public String getName()
+	{
+		return name;
+	}
+	
+	public int getValue()
+	{
+		return hand.getValue();
+	}
+	
 	public Hand discardHand()
 	{
 		Hand out = hand;
