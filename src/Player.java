@@ -1,47 +1,26 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public abstract class Player 
-{
-	private String name;
-	private Hand hand;
+import javax.swing.JButton;
+
+public class Player extends Agent{
+	public short action = -1;
 	
-	public Player()
-	{
-		name = "player";
+	public Player(String name){
+		super(name);
 	}
 	
-	public Player(String name)
-	{
-		this.name = name;
+	@Override
+	public boolean getMove() {
+		while(action == -1){
+			try{Thread.sleep(200);
+			    } catch(InterruptedException e) {
+			    	e.printStackTrace();
+			    }
+		}
+		short out = action;
+		action = -1;
+		return out == 1;
 	}
-	
-	public void deal(Hand hand)
-	{
-		this.hand = hand;
-	}
-	
-	public boolean hit(Card card)
-	{
-		hand.add(card);
-		return hand.checkValue();
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-	
-	public int getValue()
-	{
-		return hand.getValue();
-	}
-	
-	public Hand discardHand()
-	{
-		Hand out = hand;
-		hand = null;
-		return out;
-	}
-	
-	public abstract boolean getMove();
-	
+
 }

@@ -55,6 +55,10 @@ public class Card
 	public boolean isAce(){return rank.equals("A");}
 	public static boolean isAce(Card card){return card.rank.equals("A");}
 	
+	public boolean equals(Card card){
+		return rank.equals(card.rank) && suit.equals(card.suit);
+	}
+	
 	public String toString()
 	{
 		return "Rank: " + rank + "\nSuit: " + suit + "\nValue:" + value;

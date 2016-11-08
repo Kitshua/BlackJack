@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
@@ -58,6 +59,24 @@ public class Deck {
 
 	public void add(Hand hand) {
 		cards.addAll(hand.cards);
+	}
+	
+	public void remove(Card card){
+		for(Card c : cards){
+			if(c.equals(card)) {cards.remove(c); break;}
+		}
+	}
+	
+	public void removeAll(Collection<Card> c){
+		for(Card card : c) this.remove(card);
+	}
+	
+	public void removeAll(Hand h){
+		this.removeAll(h.cards);
+	}
+	
+	public void removeAll(Deck d){
+		this.removeAll(d.cards);
 	}
 
 	public Card draw() {

@@ -14,6 +14,7 @@ public class HandUI extends JPanel{
 	}
 	
 	private void render(){
+		if(cards == null) return;
 		for(int i = 0; i < cards.length; i++)
 			try {
 				cards[i] = new CardImage(hand.cards.get(i));
@@ -28,7 +29,7 @@ public class HandUI extends JPanel{
 		if(cards != null) for(CardImage card : cards){
 			this.remove(card);
 		}
-		cards = new CardImage[hand.cards.size()];
+		if(hand!= null && hand.cards != null) cards = new CardImage[hand.cards.size()];
 		render();
 	}
 	
