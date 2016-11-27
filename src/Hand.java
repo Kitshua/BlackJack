@@ -10,22 +10,26 @@ public class Hand {
 		this.add(new Card[]{card1, card2});
 	}
 	
-	public int getValue(){
+	public int getValueWithoutAces() {
 		int value = 0;
 		for(Card card : cards){
 			value += card.getValue();
 		}
-		value += numAces * 10;
 		return value;
 	}
 	
-	public boolean checkValue(){
-		int value = getValue();
-		while(value > 21 && numAces > 0){
-			numAces--;
-			value -= 10;
-		}
-		return value > 21;
+	public int getValue(){
+		int value = getValueWithoutAces();
+		if(value <= 11 && numAces > 0) return value + 10;
+		return value;
+	}
+	
+	public int getValueWithAces(){
+		return getValueWithoutAces() + numAces * 10;
+	}
+	
+	public boolean bustCheck(){
+		return getValueWithoutAces() > 21;
 	}
 	
 	public void add(Card card){

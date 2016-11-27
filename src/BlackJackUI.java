@@ -23,6 +23,8 @@ public class BlackJackUI extends JPanel{
 			hands.put(player, new HandUI(player.getHand())); 
 			this.add(hands.get(player));
 		}
+		this.revalidate();
+		BlackJack.ui.pack(); //Quick fix
 	}
 	
 	public void update(Agent player){

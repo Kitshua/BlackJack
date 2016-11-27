@@ -82,4 +82,12 @@ public class Deck {
 	public Card draw() {
 		return cards.pop();
 	}
+	
+	public Stack<Card> getCards(){
+		return cards;
+	}
+	
+	public int size(){
+		return cards.size();
+	}
 }

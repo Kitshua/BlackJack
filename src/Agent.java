@@ -1,12 +1,14 @@
 
 public abstract class Agent 
 {
-	private String name;
+	private static int agentNumber = 0;
+	protected String name;
 	private Hand hand;
 	
 	public Agent()
 	{
-		name = "player";
+		name = "Agent " + agentNumber + " (" + this.getClass().getName() + ")";
+		agentNumber++;
 	}
 	
 	public Agent(String name)
@@ -22,7 +24,7 @@ public abstract class Agent
 	public boolean hit(Card card)
 	{
 		hand.add(card);
-		return hand.checkValue();
+		return hand.bustCheck();
 	}
 	
 	public String getName()
