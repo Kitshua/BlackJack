@@ -6,6 +6,16 @@ import java.util.Stack;
 public class Deck {
 	private Stack<Card> cards = new Stack<Card>();
 
+	/**
+	 * Shallow copy constructor
+	 * @param deck The deck to copy
+	 */
+	public Deck(Deck deck){
+		this.cards.addAll(deck.cards);
+	}
+	
+	public Deck() {}
+
 	public void shuffle() {
 		Collections.shuffle(cards);
 	}
@@ -19,19 +29,47 @@ public class Deck {
 	}
 
 	public static Deck shuffleTogether(Deck deck1, Deck deck2) {
+		Deck newDeck = addTogether(deck1, deck2);
+		shuffle(newDeck);
+		return newDeck;
+	}
+	
+	/**
+	 * Combines two decks together to form a new deck
+	 * @param deck1 The first deck
+	 * @param deck2 The second deck
+	 * @return The deck made from combining deck1 and deck2
+	 */
+	public static Deck addTogether(Deck deck1, Deck deck2) {
 		Deck newDeck = new Deck();
 		newDeck.cards.addAll(deck1.cards);
 		newDeck.cards.addAll(deck2.cards);
-		shuffle(newDeck);
 		return newDeck;
 	}
 
 	private static String[] standardSuits = { "H", "C", "S", "D" };
 	private static String[] standardRanks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 	private static int[] standardValues = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
-
+	
+	/**
+	 * Creates a standard 52 (No joker) card deck
+	 * @return A standard deck
+	 */
 	public static Deck generateStandardDeck() {
 		return generateDeck(standardSuits, standardRanks, standardValues);
+	}
+	
+	/**
+	 * Creates a deck from a number of standard decks
+	 * @param number The amount of standard decks
+	 * @return The deck
+	 */
+	public static  Deck generateStandardDeck(int number) {
+		Deck deck = new Deck();
+		for(int i = 0; i < number; i++){
+			deck = addTogether(deck, generateStandardDeck());
+		}
+		return deck;
 	}
 
 	public static Deck generateDeck(String[] suits, String[] ranks, int[] values) {

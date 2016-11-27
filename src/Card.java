@@ -27,6 +27,17 @@ public class Card
 		this.value = value;
 	}
 	
+	/**
+	 * Deep copy constructor
+	 * @param card
+	 */
+	public Card(Card card)
+	{
+		this.suit = new String(card.suit);
+		this.rank = new String(card.rank);
+		this.value = card.value;
+	}
+	
 	public void setRank(String newRank)
 	{
 		rank = newRank;

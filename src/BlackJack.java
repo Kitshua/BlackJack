@@ -24,13 +24,16 @@ public class BlackJack extends JFrame
 	
 	public static void main(String[] args) 
 	{
-		Deck deck = Deck.generateStandardDeck();
+		Deck deck = Deck.generateStandardDeck(6); //The number is how many decks you wish to use
 		//Hand hand = new Hand(deck.draw(), deck.draw());
+		
+		//AgentProbabilityLearner learner = new AgentProbabilityLearner();
 		
 		Game.setDeck(deck);
 		Game.addPlayer(new AgentAlwaysPass());
 		Game.addPlayer(new AgentAlwaysHit());
 		Game.addPlayer(new AgentThorpe());
+		//Game.addPlayer(learner);
 		Game.addPlayer(new AgentValueCheck(12));
 		Game.addPlayer(new AgentValueCheck(13));
 		Game.addPlayer(new AgentValueCheck(14));
@@ -41,13 +44,16 @@ public class BlackJack extends JFrame
 		Game.addPlayer(new AgentValueCheck(19));
 		Game.addPlayer(new AgentValueCheck(20));
 		
+		
+		//learner.train();
+		System.out.println("Training Complete!");
 		//HandUI handui = new HandUI(hand);
 		
 		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ui.getContentPane().add(Game.ui, BorderLayout.CENTER);
 		ui.pack();
 		ui.setBounds(0, 0, 300, 100);
-		ui.setVisible(true);
+		ui.setVisible(false);
 		
 		Scanner k = new Scanner(System.in);
 		

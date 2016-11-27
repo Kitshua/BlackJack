@@ -6,8 +6,9 @@ import java.util.TreeMap;
 public class Game {
 	public static ArrayList<Agent> agents = new ArrayList<Agent>();
 	public static Deck deck;
+	private static Deck original; 
 	public static Deck discard = new Deck();
-	public static boolean score = true; //We don't want to keep a scoreboard if we're going to be running thousands of games
+	public static boolean score = false; //We don't want to keep a scoreboard if we're going to be running thousands of games
 	
 	public static TreeMap<Integer, HashMap<Agent, Integer>> scoreboard = new TreeMap<Integer, HashMap<Agent, Integer>>();
 	
@@ -21,7 +22,7 @@ public class Game {
 	public static int round = 0;
 	public static PlayerActions pa = new PlayerActions();
 	public static BlackJackUI ui = new BlackJackUI(agents);
-	public static boolean uiActive = true;
+	public static boolean uiActive = false;
 	
 	public static Hand dealersHand; //The dealers hand
 	public static Card dealersFU; //The dealers face-up card
@@ -30,15 +31,15 @@ public class Game {
 	public static void setPlayers(Agent[] agents){Game.agents = new ArrayList<Agent>(); for(Agent player : agents) Game.agents.add(player); ui = new BlackJackUI(Game.agents);}
 	public static void addPlayer(Agent agent){
 		Game.agents.add(agent); 
-		ui.generate();
+		if(uiActive) ui.generate();
 		wins.put(agent, 0);
 		ties.put(agent, 0);
 		loss.put(agent, 0);
 		bust.put(agent, 0);
 	}
 	
-	public static void setDeck(Deck deck){Game.deck = deck;}
-	public static void addDeck(Deck deck){Game.deck = Deck.shuffleTogether(Game.deck, deck);}
+	public static void setDeck(Deck deck){Game.deck = deck; original = new Deck(deck);}
+	public static void addDeck(Deck deck){Game.deck = Deck.shuffleTogether(Game.deck, deck); original = Deck.addTogether(original, deck);}
 	
 	/**
 	 * Runs one full turn
@@ -104,8 +105,9 @@ public class Game {
 	 * Shuffles the discard back into the deck
 	 */
 	public static void shuffleDiscard(){
-		addDeck(discard);
+		deck = new Deck(original);
 		discard = new Deck();
+		shuffle();
 	}
 	
 	/**
@@ -162,13 +164,22 @@ public class Game {
 		dealersFU = null;
 	}
 	
+	public static void reset(){
+		resetScoreBoard();
+		shuffleDiscard();
+	}
+	
 	public static void resetScoreBoard(){
 		round = 0;
 		scoreboard = new TreeMap<Integer, HashMap<Agent, Integer>>();
-		wins = new HashMap<Agent, Integer>();
-		ties = new HashMap<Agent, Integer>();
-		loss = new HashMap<Agent, Integer>();
-		bust = new HashMap<Agent, Integer>();
+		if(uiActive) ui.generate();
+		for(Agent agent : agents)
+		{
+			wins.put(agent, 0);
+			ties.put(agent, 0);
+			loss.put(agent, 0);
+			bust.put(agent, 0);
+		}
 	}
 	
 	public static void printScoreboard(){
@@ -222,7 +233,7 @@ public class Game {
 		for(Agent agent : agents) printAgentsStatistics(agent);
 		
 		System.out.println("==================================================");
-		System.out.println("Total Rounds:" + round);
+		System.out.println("Total Rounds: " + round);
 	}
 	
 	public static void printAgentsStatistics(Agent agent){
@@ -255,4 +266,6 @@ public class Game {
 		
 		return out;
 	}
+	
+	public static Deck getOriginal(){return new Deck(original);}
 }
