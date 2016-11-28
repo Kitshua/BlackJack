@@ -44,6 +44,8 @@ public class BlackJack extends JFrame
 		Game.addPlayer(new AgentValueCheck(19));
 		Game.addPlayer(new AgentValueCheck(20));
 		
+		Game.addPlayer(new AgentStochasticGradient());
+		
 		
 		//learner.train();
 		//System.out.println("Training Complete!");

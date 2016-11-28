@@ -20,11 +20,7 @@ public class AgentThorpe extends Agent{
 			return false;
 		}
 		if(hand.getValue() < 8) return true;
-		if(hand.getValue() == 8 
-			&& dealersFU.getValue() != 2
-			&& dealersFU.getValue() != 7
-			&& dealersFU.getValue() != 8)
-			return true;
+		if(hand.getValue() == 8 && dealersFU.getValue() >= 9) return true;
 		return false;
 	}
 
