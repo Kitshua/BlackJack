@@ -40,6 +40,7 @@ public class AgentStochasticGradient extends Agent {
 		System.out.println("Training started!");
 		
 		for(int i = 0; i < ROUNDS; i++){
+			//Shuffles 
 			Collections.shuffle(data);
 			int updates = 0;
 			
@@ -57,7 +58,10 @@ public class AgentStochasticGradient extends Agent {
 				
 				float step = (float) (STEP_SIZE / (Math.pow(updates, STEP_SIZE_REDUCTION)));
 				
+				//Calculated the loss gradient
 				float[] gradient = squaredLossGradient(datum, weights);
+				//float[] gradient = logisticLossGradient(datum, weights);
+				//Updates the weights based on the gradient loss function and regularization from earlier
 				weights[0] -= (gradient[0] + c[0]) * step;
 				weights[1] -= (gradient[1] + c[1]) * step;
 				weights[2] -= (gradient[2] + c[2]) * step;
@@ -75,6 +79,16 @@ public class AgentStochasticGradient extends Agent {
 	public static float[] squaredLossGradient(Datum datum, float[] weights){
 		float value = dot(datum, weights) - (datum.isHit ? 1 : -1);
 		value /= 2;
+		return new float[]{(	datum.hasAce ? 1 : 0) * value,
+							datum.handValue * value,
+							datum.dealersFU * value
+		};
+	}
+	
+	public static float[] logisticLossGradient(Datum datum, float[] weights){
+		float y = (datum.isHit ? 1 : -1);
+		float epower = (float) Math.pow(Math.E, -1 * dot(datum, weights) * y);
+		float value = -y * epower / (1 + epower);
 		return new float[]{(	datum.hasAce ? 1 : 0) * value,
 							datum.handValue * value,
 							datum.dealersFU * value
