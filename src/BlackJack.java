@@ -46,7 +46,7 @@ public class BlackJack extends JFrame
 		
 		
 		//learner.train();
-		System.out.println("Training Complete!");
+		//System.out.println("Training Complete!");
 		//HandUI handui = new HandUI(hand);
 		
 		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
